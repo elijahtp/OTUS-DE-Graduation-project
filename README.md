@@ -10,9 +10,12 @@
   - Создать систему способную выполнять реальные задачи
   - Все инструменты развернуть на serverless решениях
   - Использовать соврменные инструменты для работы с большими данными 
-  - Использовать внедрение машинного обучения и построение прогнозной модели
-  
-# Используемые технологии: 
+  - Использовать машинное обучение для построения прогнозной модели
+
+# Архитектура
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/b80b61abad1e90f9b7c9099143053ecc37028d76/scheme.png)
+
+# Используемые инструменты: 
   - Spark
   - Airflow
   - Superset
@@ -33,7 +36,7 @@ Apache Spark: <br />
   - выгрузка данных из источника данных (csv) в слой STG Postgresql.
   - преобразование данных и загрузка из слоя STG в слой ODS Postgresql
   - создание слоя витрин (datamart) из слоя ODS 
-  - проведение разведочного анализа данных (EDA), анализа сезонности и трендов и применение моделей ML(ARIMA,SARIMA) для создания прогноза продаж в течение 7 ближайших дней. Создание соответствующей витрины в слое datamart
+  - проведение разведочного анализа данных (EDA), анализа сезонности и трендов и применение моделей ML(ARIMA,SARIMA) для создания прогноза продаж на 7 дней. Создание соответствующей витрины в слое datamart
 
 Apache Airflow: <br />
 С помощью Airflow производится запуск пайплайна ETL, который:
@@ -49,34 +52,16 @@ Serverless: <br />
 Все инструменты развернуты на базе облачной инфраструктуры Yandex Cloud и представляют собой виртуальные машины с установленными операционными системами Linux Ubuntu
 
 Docker: <br />
+Для развертывания всех программных инструментов использовалась технология контейнеризации, позволяющая запускать приложения изолированно от операционной системы
+
+# Описание пайплайнов: <br />
+    spark/ <br />
+      0_final_spark_stg.py: загружает данные в raw слой STG PostgreSQL (jdbc драйвер)
+      1_final_spark_ods.py: преобразует данные и загружает из слоя STG в слой ODS PostgreSQL (jdbc драйвер)
+      2_final_spark_datamart.py: cоздает слой витрин (datamart) из слоя ODS PostgreSQL (jdbc драйвер)
+      3_final_spark_forecast.py: создание прогноза продаж на 7 дней и загрузка в витрину PostgreSQL (jdbc драйвер)
+    airflow/ <br />
+      final_airflow_api_to_postgress.py - task подключения к api и загрузки актуальных данных о продажах за день в оперативный слой ODS Postgress (PythonOperator,           PostgresOperator)
+# Скриншоты, демонстрирующие функционал
 
 
-
-
-
-
-    task_load_files_into_db: загружает данные в PostgreSQL (PythonOperator, SQLalchemy)
-    task_transform_data_in_db: преобразовывает данные для результирующей витрины (BashOperator, dbt)
-    task_test_data_in_db: тестирует данные на отсутствие дублей и null (BashOperator, dbt)
-
-airflow/
-
-test_gobike_tripdata.py - DAG
-
-test_raw_gobike_tripdata.py - task загрузки CSV в RAW
-
-test_ods_gobike_tripdata.py - task загрузки в ODS
-
-test_dm_station_gobike_tripdata.py - task загрузки измерения в DM
-
-test_dm_trips_gobike_tripdata.py - task расчета агрегата в DM
-
-test_dm_teradata_gobike_tripdata.py - task копирования витрины в Teradata
-
-jupyter/
-
-test_gobike_tripdata.ipynb - Jupyter Notebook для тестовой визуализации данных и лога загрузок
-
-
-# Архитектура
-![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/b80b61abad1e90f9b7c9099143053ecc37028d76/scheme.png)
