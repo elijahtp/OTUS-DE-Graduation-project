@@ -62,6 +62,14 @@ Docker: <br />
       3_final_spark_forecast.py: создание прогноза продаж на 7 дней и загрузка в витрину PostgreSQL (jdbc драйвер)
     airflow/ <br />
       final_airflow_api_to_postgress.py - task подключения к api и загрузки актуальных данных о продажах за день в оперативный слой ODS Postgress (PythonOperator,           PostgresOperator)
-# Скриншоты, демонстрирующие функционал
-
+# Скриншоты, демонстрирующие функционал модулей
+YandexCloud: <br />
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/90e941103932b70094987a8198f094995fd0ca10/Screenshots/yc.PNG)
+Postgresql: <br />
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/90e941103932b70094987a8198f094995fd0ca10/Screenshots/postgresql.PNG)
+Airflow: <br />
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/90e941103932b70094987a8198f094995fd0ca10/Screenshots/airflow.PNG)
+Superset: <br />
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/90e941103932b70094987a8198f094995fd0ca10/Screenshots/superset1.PNG)
+![Image alt](https://github.com/elijahtp/OTUS-DE-Graduation-project/blob/90e941103932b70094987a8198f094995fd0ca10/Screenshots/superset2.PNG)
 
